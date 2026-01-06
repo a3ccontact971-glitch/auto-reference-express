@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AUTO RÉFÉRENCE EXPRESS — Recherche & Fourniture de Pièces Auto</title>
+  <meta name="description" content="AUTO RÉFÉRENCE EXPRESS : recherche de référence constructeur, comparaison de prix, commande et suivi de pièces auto. Service rapide Guadeloupe / Martinique / Antilles." />
+  <style>
+    :root{
+      --bg:#0b0f17; --card:#111827; --muted:#9ca3af; --text:#f9fafb;
+      --blue:#2563eb; --blue2:#1d4ed8; --line:rgba(255,255,255,.08);
+      --ok:#22c55e;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(37,99,235,.35), transparent),
+                  radial-gradient(900px 500px at 80% 0%, rgba(34,197,94,.18), transparent),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1100px; margin:0 auto; padding:0 18px}
+    header{
+      position:sticky; top:0; backdrop-filter: blur(12px);
+      background: rgba(11,15,23,.72);
+      border-bottom:1px solid var(--line);
+      z-index:10;
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{
+      width:42px; height:42px; border-radius:12px;
+      background: linear-gradient(135deg, var(--blue), #60a5fa);
+      display:grid; place-items:center;
+      box-shadow: 0 10px 30px rgba(37,99,235,.25);
+      font-weight:900;
+    }
+    .brand h1{margin:0; font-size:15px; letter-spacing:.3px}
+    .brand p{margin:0; color:var(--muted); font-size:12px}
+    .links{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
+    .links a{color:var(--muted); font-size:14px}
+    .links a:hover{color:var(--text)}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 14px; border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      font-weight:700; font-size:14px;
+      gap:10px;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      border-color: transparent;
+      box-shadow: 0 10px 30px rgba(37,99,235,.22);
+    }
+    .btn.primary:hover{filter:brightness(1.08)}
+    .btn:hover{background: rgba(255,255,255,.06)}
+    .hero{padding:48px 0 24px}
+    .grid{
+      display:grid; grid-template-columns:1.2fr .8fr; gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 860px){ .grid{grid-template-columns:1fr} .links{display:none} }
+    .card{
+      background: rgba(17,24,39,.82);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:20px;
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+    }
+    .tag{
+      display:inline-flex; gap:8px; align-items:center;
+      font-size:12px; color:var(--muted);
+      padding:6px 10px; border:1px solid var(--line);
+      border-radius:999px; background: rgba(255,255,255,.03);
+    }
+    .hero h2{margin:14px 0 10px; font-size:38px; line-height:1.1}
+    .hero p{margin:0; color:#cbd5e1; font-size:16px}
+    .cta{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap}
+    .list{
+      display:grid; gap:10px; margin:16px 0 0; padding:0; list-style:none;
+    }
+    .list li{display:flex; gap:10px; color:#e5e7eb}
+    .dot{
+      width:18px; height:18px; border-radius:999px; background: rgba(34,197,94,.14);
+      border:1px solid rgba(34,197,94,.3);
+      display:grid; place-items:center; color: var(--ok); font-weight:900; font-size:12px; flex:0 0 auto;
+      margin-top:2px;
+    }
+    section{padding:18px 0}
+    .section-title{display:flex; align-items:flex-end; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .section-title h3{margin:0; font-size:22px}
+    .section-title p{margin:0; color:var(--muted)}
+    .cols{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; margin-top:14px}
+    @media (max-width: 860px){ .cols{grid-template-columns:1fr} }
+    .mini h4{margin:0 0 6px}
+    .mini p{margin:0; color:#cbd5e1}
+    .price{
+      margin-top:10px; padding-top:10px; border-top:1px solid var(--line);
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      color:#e5e7eb; font-weight:800;
+    }
+    .badge{
+      font-size:12px; color:var(--muted);
+      padding:4px 10px; border:1px solid var(--line); border-radius:999px;
+      background: rgba(255,255,255,.03);
+    }
+    .steps{display:grid; grid-template-columns: repeat(4,1fr); gap:12px; margin-top:14px}
+    @media (max-width: 980px){ .steps{grid-template-columns:1fr 1fr} }
+    @media (max-width: 560px){ .steps{grid-template-columns:1fr} }
+    .step{
+      padding:16px; border-radius:18px; border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .step b{display:inline-grid; place-items:center; width:28px; height:28px; border-radius:10px;
+      background: rgba(37,99,235,.22); border:1px solid rgba(37,99,235,.35); margin-bottom:8px}
+    .faq{display:grid; gap:10px; margin-top:14px}
+    details{
+      border:1px solid var(--line); border-radius:16px; padding:12px 14px;
+      background: rgba(255,255,255,.03);
+    }
+    summary{cursor:pointer; font-weight:800}
+    details p{color:#cbd5e1}
+    footer{padding:26px 0 40px; color:var(--muted); border-top:1px solid var(--line); margin-top:18px}
+    .contact{
+      display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px
+    }
+    @media (max-width: 860px){ .contact{grid-template-columns:1fr} }
+    .field{display:grid; gap:6px}
+    label{font-size:12px; color:var(--muted)}
+    input, textarea{
+      width:100%; padding:12px 12px; border-radius:14px;
+      border:1px solid var(--line); background: rgba(0,0,0,.2); color:var(--text);
+      outline:none;
+    }
+    input:focus, textarea:focus{border-color: rgba(37,99,235,.6)}
+    .small{font-size:12px; color:var(--muted)}
+    .pill-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .pill{font-size:12px; color:#cbd5e1; border:1px solid var(--line); padding:6px 10px; border-radius:999px; background: rgba(255,255,255,.03)}
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo">AR</div>
+        <div>
+          <h1>AUTO RÉFÉRENCE EXPRESS</h1>
+          <p>Recherche • Comparatif • Commande • Suivi</p>
+        </div>
+      </div>
+      <nav class="links" aria-label="Navigation">
+        <a href="#services">Services</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#pro">Offre garages</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="btn primary" href="https://wa.me/590000000000?text=Bonjour%20AUTO%20R%C3%89F%C3%89RENCE%20EXPRESS%2C%20je%20cherche%20une%20pi%C3%A8ce%20auto.%20Voici%20ma%20carte%20grise%20%3A" target="_blank" rel="noopener">
+        📲 WhatsApp
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="hero" id="top">
+      <div class="grid">
+        <div class="card">
+          <span class="tag">✅ La bonne pièce • Sans erreur • Gain de temps</span>
+          <h2>Recherche & fourniture de pièces auto<br/>service express Antilles</h2>
+          <p>
+            Vous envoyez la <b>carte grise</b> (et si possible une photo de la pièce).  
+            Je vérifie la <b>référence constructeur</b>, je compare les options, et je vous propose les meilleures solutions.
+          </p>
+
+          <ul class="list">
+            <li><span class="dot">✓</span>Référence exacte (moins d’erreurs & retours)</li>
+            <li><span class="dot">✓</span>Comparatif prix / délais / alternatives</li>
+            <li><span class="dot">✓</span>Commande & suivi possibles</li>
+          </ul>
+
+          <div class="cta">
+            <a class="btn primary" href="#contact">📩 Demander une recherche</a>
+            <a class="btn" href="#pro">🏁 Offre Garages</a>
+            <a class="btn" href="#tarifs">💰 Voir les tarifs</a>
+          </div>
+
+          <div class="pill-row">
+            <span class="pill">Guadeloupe</span>
+            <span class="pill">Martinique</span>
+            <span class="pill">Antilles</span>
+            <span class="pill">Particuliers & Pros</span>
+          </div>
+
+          <p class="small" style="margin-top:14px">
+            *Service indépendant — non affilié aux marques constructeurs.*
+          </p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin:0 0 8px">📌 À envoyer pour démarrer</h3>
+          <p style="margin:0;color:#cbd5e1">Pour une réponse rapide, envoyez :</p>
+          <ul class="list" style="margin-top:12px">
+            <li><span class="dot">1</span>Photo de la carte grise</li>
+            <li><span class="dot">2</span>Photo de la pièce (si possible)</li>
+            <li><span class="dot">3</span>Votre besoin (urgent / standard)</li>
+          </ul>
+          <div style="margin-top:16px; display:grid; gap:10px">
+            <a class="btn primary" href="https://wa.me/590000000000?text=Bonjour%20AUTO%20R%C3%89F%C3%89RENCE%20EXPRESS%2C%20je%20vous%20envoie%20ma%20carte%20grise%20et%20ma%20demande%20de%20pi%C3%A8ce%20%3A" target="_blank" rel="noopener">📲 Démarrer sur WhatsApp</a>
+            <a class="btn" href="#services">🔍 Voir les services</a>
+          </div>
+          <p class="small" style="margin-top:14px">
+            ⚠️ Paiement avant recherche (gain de temps & priorité).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="section-title">
+        <div>
+          <h3>Services</h3>
+          <p>Simple, rapide, fiable.</p>
+        </div>
+      </div>
+
+      <div class="cols">
+        <div class="card mini">
+          <h4>🔧 Recherche simple</h4>
+          <p>Identification de la pièce + référence compatible.</p>
+          <div class="price"><span>À partir de</span><span>25 €</span></div>
+        </div>
+
+        <div class="card mini">
+          <h4>📊 Comparatif complet</h4>
+          <p>2–3 options : prix / délais / qualité.</p>
+          <div class="price"><span>Forfait</span><span>40 €</span></div>
+        </div>
+
+        <div class="card mini">
+          <h4>📦 Commande & suivi</h4>
+          <p>Commande sécurisée + suivi jusqu’à réception.</p>
+          <div class="price"><span>Forfait</span><span>60–80 €</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tarifs">
+      <div class="section-title">
+        <div>
+          <h3>Tarifs</h3>
+          <p>Transparents et adaptés à votre besoin.</p>
+        </div>
+        <span class="badge">Paiement avant recherche</span>
+      </div>
+
+      <div class="cols">
+        <div class="card mini">
+          <h4>Particulier — Essentiel</h4>
+          <p>Recherche + référence</p>
+          <div class="price"><span>25 €</span><span class="badge">24h</span></div>
+        </div>
+        <div class="card mini">
+          <h4>Particulier — Confort</h4>
+          <p>Recherche + comparatif</p>
+          <div class="price"><span>40 €</span><span class="badge">prioritaire</span></div>
+        </div>
+        <div class="card mini">
+          <h4>Particulier — Full</h4>
+          <p>Recherche + commande + suivi</p>
+          <div class="price"><span>60–80 €</span><span class="badge">suivi</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <h4 style="margin:0 0 6px">💡 Astuce</h4>
+        <p style="margin:0;color:#cbd5e1">
+          Plus vous envoyez d’infos (carte grise + photo pièce), plus je sécurise la compatibilité.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <div>
+          <h3>Comment ça marche ?</h3>
+          <p>Process en 4 étapes.</p>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step"><b>1</b><div><strong>Vous envoyez</strong><br/><span class="small">Carte grise + demande</span></div></div>
+        <div class="step"><b>2</b><div><strong>Je vérifie</strong><br/><span class="small">Référence & compatibilité</span></div></div>
+        <div class="step"><b>3</b><div><strong>Je propose</strong><br/><span class="small">Prix / délais / alternatives</span></div></div>
+        <div class="step"><b>4</b><div><strong>Vous validez</strong><br/><span class="small">Commande & suivi si besoin</span></div></div>
+      </div>
+    </section>
+
+    <section id="pro">
+      <div class="section-title">
+        <div>
+          <h3>Offre spéciale Garages</h3>
+          <p>Un référent pièces dédié, sans embauche.</p>
+        </div>
+        <span class="badge">Abonnement mensuel</span>
+      </div>
+
+      <div class="cols">
+        <div class="card mini">
+          <h4>🟦 PRO START</h4>
+          <p>Jusqu’à 10 recherches/mois • réponse 24h</p>
+          <div class="price"><span>150 € / mois</span><span class="badge">10 recherches</span></div>
+        </div>
+        <div class="card mini">
+          <h4>🟩 PRO CONFORT</h4>
+          <p>Recherches illimitées • prioritaire • suivi</p>
+          <div class="price"><span>250 € / mois</span><span class="badge">illimité</span></div>
+        </div>
+        <div class="card mini">
+          <h4>🟥 PRO PREMIUM</h4>
+          <p>Urgences • devis prêts à transmettre • import</p>
+          <div class="price"><span>300 € / mois</span><span class="badge">premium</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <h4 style="margin:0 0 6px">Ce que vous gagnez</h4>
+        <ul class="list" style="margin-top:10px">
+          <li><span class="dot">✓</span>Moins d’erreurs de références (moins de retours)</li>
+          <li><span class="dot">✓</span>Plus de véhicules réparés par semaine</li>
+          <li><span class="dot">✓</span>Temps gagné au comptoir & à l’atelier</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <div>
+          <h3>FAQ</h3>
+          <p>Questions fréquentes.</p>
+        </div>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>Vous travaillez avec quelles marques ?</summary>
+          <p>Je recherche des pièces pour la majorité des marques (européennes, japonaises, etc.). La compatibilité est validée via la carte grise et/ou référence.</p>
+        </details>
+        <details>
+          <summary>Pourquoi le paiement avant recherche ?</summary>
+          <p>Parce que la valeur est dans le temps et l’expertise de vérification des références. Cela permet aussi de traiter votre demande en priorité.</p>
+        </details>
+        <details>
+          <summary>Vous livrez ?</summary>
+          <p>Je peux vous proposer des solutions de commande et de suivi. La livraison dépend du fournisseur choisi et de votre localisation.</p>
+        </details>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-title">
+        <div>
+          <h3>Contact</h3>
+          <p>Envoyez la carte grise et votre besoin, je réponds rapidement.</p>
+        </div>
+      </div>
+
+      <div class="contact">
+        <div class="card">
+          <h4 style="margin:0 0 8px">📲 WhatsApp (recommandé)</h4>
+          <p style="margin:0;color:#cbd5e1">Cliquez et envoyez votre carte grise.</p>
+          <div class="cta">
+            <a class="btn primary" href="https://wa.me/590000000000?text=Bonjour%20AUTO%20R%C3%89F%C3%89RENCE%20EXPRESS%2C%20voici%20ma%20carte%20grise%20et%20ma%20demande%20%3A" target="_blank" rel="noopener">Démarrer sur WhatsApp</a>
+          </div>
+          <p class="small" style="margin-top:12px">Remplace le numéro WhatsApp dans le code : <b>590000000000</b></p>
+        </div>
+
+        <div class="card">
+          <h4 style="margin:0 0 8px">📧 Email</h4>
+          <form onsubmit="return sendMail(event)">
+            <div class="field">
+              <label>Nom</label>
+              <input id="name" required placeholder="Votre nom" />
+            </div>
+            <div class="field" style="margin-top:10px">
+              <label>Téléphone / WhatsApp</label>
+              <input id="phone" required placeholder="+590 ..." />
+            </div>
+            <div class="field" style="margin-top:10px">
+              <label>Votre demande</label>
+              <textarea id="msg" rows="4" required placeholder="Marque / modèle / année + pièce recherchée + urgence"></textarea>
+            </div>
+            <div class="cta" style="margin-top:12px">
+              <button class="btn primary" type="submit">Envoyer</button>
+              <a class="btn" href="#top">↑ Haut de page</a>
+            </div>
+            <p class="small" style="margin-top:10px">Le bouton ouvre votre application email (mailto).</p>
+          </form>
+        </div>
+      </div>
+
+      <script>
+        function sendMail(e){
+          e.preventDefault();
+          const name = encodeURIComponent(document.getElementById("name").value.trim());
+          const phone = encodeURIComponent(document.getElementById("phone").value.trim());
+          const msg = encodeURIComponent(document.getElementById("msg").value.trim());
+
+          // ✅ Remplace l’email ci-dessous par le tien
+          const to = "tonemail@exemple.com";
+          const subject = encodeURIComponent("Demande de pièce — AUTO RÉFÉRENCE EXPRESS");
+          const body = encodeURIComponent(
+            "Nom: " + decodeURIComponent(name) + "\n" +
+            "Téléphone/WhatsApp: " + decodeURIComponent(phone) + "\n\n" +
+            "Demande:\n" + decodeURIComponent(msg) + "\n\n" +
+            "Carte grise: (à joindre en photo sur WhatsApp ou email)"
+          );
+
+          window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+          return false;
+        }
+      </script>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <div style="display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap">
+          <div>© <span id="y"></span> AUTO RÉFÉRENCE EXPRESS</div>
+          <div class="small">Service indépendant — non affilié aux marques constructeurs.</div>
+        </div>
+      </div>
+      <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+    </footer>
+
+  </div>
+</main>
+
+</body>
+</html>
